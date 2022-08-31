@@ -33,3 +33,10 @@
   background-color: #1e90ff;
 }
 
+.input_text {
+  width: 90%;
+}
+
+.x_btn{
+  width: 10%;
+}
