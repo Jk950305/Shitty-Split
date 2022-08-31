@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-<html>
+<script>
+  function add_field()
+  {
+    var total_text=document.getElementsByClassName("input_text");
+    total_text=total_text.length+1;
+    field_div = document.getElementById("field_div");
+    new_input = "<li id='input_text"+total_text+
+    "_wrapper'><label>Person "+total_text+"</label> <input type='text' class='input_text' name='input_text[]' id='input_text"+
+    total_text+"' placeholder='Enter Text' required> <input type='button'value='x' onclick='remove_field("+total_text+");'></li>";
+    field_div.insertAdjacentHTML('beforeend',new_input);
+  }
+
+  function remove_field(index)
+  {
+    var total_text=document.getElementsByClassName("input_text");
+    document.getElementById("input_text"+index+"_wrapper").remove();
+  }
+</script>
 <head>
-    <meta charset="UTF-8">
-    <title>Say Hello</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/MariyaSha/SimpleGreetingApp/main/logo.png">
-    <br>
-    <form action="greet" method="post">
-        {% for message in get_flashed_messages() %}
-             <p>{{ message }}</p>
-         {% endfor %}
+    <div class = "container">
+      <h1>Shittysplit</h1>
+      <form action='/trans' method="post">
+        <div id="wrapper">
+          <ol id="field_div">
+            <li id='input_text1_wrapper'>
+                <label>Person 1</label>
+                <input type='text' class='input_text' name='input_text[]' id='input_text1' placeholder='Enter Text' required>
+                <input type='button'value='x' onclick='remove_field(1);'>
+            </li>
+          </ol>
+          <input type="button" value="Add new person" onclick="add_field();">
+        </div>
         <br>
-        <input type="text" name="name_input">
-        <br>
-        <input type="submit" value="GREET" id="greet">
-    </form>
+        <input type='submit' value='Next'>
+      </form>
+    </div>
 </body>
-</html>
