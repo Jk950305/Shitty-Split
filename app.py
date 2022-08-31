@@ -94,8 +94,8 @@ def minCashFlowRec(amount,users):
 
     if round(min,2)==0.0 :
         return ""
-        
-    res = str(users[mxDebit])+" pays "+str(round(min,2))+" to "+str(users[mxCredit])+","
+
+    res = str(users[mxDebit])+" gives $"+str(round(min,2))+" to "+str(users[mxCredit])+","
     return res+str(minCashFlowRec(amount,users))
     
 
