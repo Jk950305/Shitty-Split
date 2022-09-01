@@ -1,7 +1,4 @@
-.multiselect {
-  width: 200px;
-  float: none;
-}
+
 
 .selectBox {
   position: relative;
@@ -9,7 +6,7 @@
 
 .selectBox select {
   width: 100%;
-  font-weight: bold;
+  border: none;
 }
 
 .overSelect {
@@ -23,20 +20,44 @@
 .multiselect div[id^="checkboxes"] {
   display: none;
   border: 1px #dadada solid;
+  background-color: #eee;
+  z-index: 100;
 }
 
 .multiselect div[id^="checkboxes"] label {
-  display: block;
+  display: inline;
 }
 
 .multiselect div[id^="checkboxes"] label:hover {
   background-color: #1e90ff;
 }
 
-.input_text {
-  width: 90%;
+label.checkbox_item{
+  display:  block!important;
+  clear: both!important;
+  width: 100%!important;
 }
 
-.x_btn{
-  width: 10%;
+label.checkbox_item{
+  font-weight: normal;
+  background-color: #eee!important;
+}
+
+label.checkbox_item:hover{
+  background-color: #fff!important;
+}
+
+
+.bootstrap-select {
+  border: 1px solid #999!important;
+}
+
+.input-group{
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
+
+.logo {
+  cursor: pointer;
 }

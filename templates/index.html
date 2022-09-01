@@ -1,90 +1,88 @@
 <!DOCTYPE html>
-<html>
 <script>
   function add_field()
   {
-	var total_text=document.getElementsByClassName("input_text");
-	total_text=total_text.length+1;
-	field_div = document.getElementById("field_div");
-	// new_input = "<li id='input_text"+total_text+
-	// "_wrapper'><label>Person "+total_text+"</label> <input type='text' class='input_text' name='input_text[]' id='input_text"+
-	// total_text+"' placeholder='Enter Text' required> <input type='button'value='x' onclick='remove_field("+total_text+");'></li>";
+    var total_text=document.getElementsByClassName("input_text");
+    total_text=total_text.length+1;
+    field_div = document.getElementById("field_div");
+    // new_input = "<div id='input_text"+total_text+
+    // "_wrapper'><label>Person "+total_text+"</label> <input type='text' class='input_text form-control' name='input_text[]' id='input_text"+
+    // total_text+"' placeholder='Enter Text' required> <input type='button' class='x_btn btn btn-danger' id='x_btn_"+total_text+"' value='x' onclick='remove_field();'></div>";
 
-	new_input = "<div class='form-row'> <div class='form-holder'> <label class='form-row-inner'> <input type='text' class='form-control input_text' name='input_text[]' id='input_text"+
-	total_text+"' required> <span class='label'>Person "+total_text+"</span> <input type='button' value='x' onclick='remove_field("+total_text+");'> </label> </div></div>";
-	field_div.insertAdjacentHTML('beforeend',new_input);
+    new_input = "<div id='input_text"+total_text+"_wrapper' class='input-group mb-3'> <div class='input-group-prepend'> <span class='input-group-text'>Person "+total_text+"</span> </div> <input type='text' class='input_text form-control' name='input_text[]' id='input_text"+total_text+"' placeholder='Enter Text' required> <div class='x_btn input-group-append' id='x_btn_"+total_text+"'> <span class='input-group-text btn btn-danger' onclick='remove_field();'>X</span> </div> </div>";
+    field_div.insertAdjacentHTML('beforeend',new_input);
+    disable_x();
   }
 
-  function remove_field(index)
+  function disable_x(){
+    var all_x = document.getElementsByClassName("x_btn");
+    var size = all_x.length;
+    for(var i=1; i<size-1; i++){
+        document.getElementById("x_btn_"+(i+1)).style.display = 'none';
+    }
+  }
+
+  function remove_field()
   {
-	var total_text=document.getElementsByClassName("input_text");
-	document.getElementById("input_text"+index+"_wrapper").remove();
+    var total_text=document.getElementsByClassName("input_text");
+    total_text=total_text.length;
+    document.getElementById("input_text"+total_text+"_wrapper").remove();
+    if(total_text>2){
+        total_text=document.getElementsByClassName("input_text");
+        total_text=total_text.length;
+        document.getElementById("x_btn_"+total_text).style.display = 'inline';
+        console.log(total_text);
+    }
+    
+
   }
 </script>
 <head>
-	<meta charset="utf-8">
-	<title>Shittysplit</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Font-->
-	<link rel="stylesheet" type="text/css" href="../static/css/opensans-font.css">
-	<link rel="stylesheet" type="text/css" href="../static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
-	<!-- datepicker -->
-	<link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.min.css">
-	<!-- Main Style Css -->
-    <link rel="stylesheet" href="../static/css/style.css"/>
-	<link rel="stylesheet" href="../static/css/main.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="page-content">
-		<div class="wizard-heading">Shittysplit</div>
-		<div class="wizard-v6-content">
-			<div class="wizard-form">
-		        <form class="form-register" id="form-register" action='/trans' method="post">
-		        	<div id="form-total">
-		        		<!-- SECTION 1 -->
-			            <h2>
-			            	<p class="step-icon"><span>1</span></p>
-			            	<span class="step-text">Personal Info</span>
-			            </h2>
-			            <section>
-			                <div class="inner">
-			                	<div class="form-heading">
-			                		<h3>Personal Info</h3>
-			                		<span>1/3</span>
-			                	</div>
-			                	<div id="field_div">
-									<div class="form-row">
-										<div class="form-holder form-holder-main">
-											<label class="form-row-inner">
-												<input type='text' class='form-control input_text' name='input_text[]' id='input_text1' required>
-												<span class="label">Person_1</span>
-											</label>
-										</div>
-										<div class="form-holder form-holder-side">
-											<button type='button' class='x_btn' onclick='remove_field(1);'>x</button>
-										</div>
-									</div>
-
-									<!-- <div class="form-row">
-										<div class="form-holder">
-											<label class="form-row-inner">
-												<input type="text" name="your_email_1" id="your_email_1" class="form-control"  required>
-												<span class="label">E-Mail</span>
-											</label>
-										</div>
-									</div> -->
-								</div>
-							</div>
-			            </section>
-		        	</div>
-		        </form>
-			</div>
-		</div>
-	</div>
-	<script src="../static/js/jquery-3.3.1.min.js"></script>
-	<script src="../static/js/jquery.steps.js"></script>
-	<script src="../static/js/jquery-ui.min.js"></script>
-	<script src="../static/js/main.js"></script>
+    <div class = "container">
+        <div class="row logo" onclick="location.href='/';">
+            <div class="col-lg">
+                <h1>Shittysplit</h1>
+            </div>
+        </div>
+        <hr>
+        <form class="row"  action='/trans' method="post">
+            <div class="col-lg">
+                <h4>Participants</h4>
+            </div>
+            <div id="wrapper" class="form-group col-lg">
+                <div id="field_div">
+                    <div id='input_text1_wrapper' class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Person 1</span>
+                        </div>
+                        <input type='text' class='input_text form-control' name='input_text[]' id='input_text1' placeholder='Enter Text' required>
+                        <div class='x_btn input-group-append' id='x_btn_1'> 
+                            <span class='input-group-text btn btn-danger' onclick='remove_field();' style='display:none'>X</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" value="Add new person" onclick="add_field();">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type='submit' class="btn btn-success" value='Next' style="float:right">
+                </div>    
+            </div>        
+        </form>
+    </div>
 </body>
-</html>

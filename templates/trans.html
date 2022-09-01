@@ -1,114 +1,153 @@
 
 <!DOCTYPE html>
-<script type="text/javascript">
 
-    var expanded = false;
-
-    function showCheckboxes(index) {
-      var checkboxes = document.getElementById("checkboxes"+index);
-      if (!expanded) {
-        checkboxes.style.display = "block";
-        expanded = true;
-      } else {
-        checkboxes.style.display = "none";
-        expanded = false;
-      }
-    }
-
-
-  function add_field()
-  {
-    var total_text=document.getElementsByClassName("trans_input");
-    total_text=total_text.length+1;
-    trans_div = document.getElementById("trans_div");
-    /*new_input = "<li id='input_text"+total_text+
-    "_wrapper'><label>Person "+total_text+"</label> <input type='text' class='input_text' name='input_text[]' id='input_text"+
-    total_text+"' placeholder='Enter Text' required> <input type='button'value='x' onclick='remove_field("+total_text+");'></li>";
-*/
-    new_input = "<li id='trans_input"+total_text+"_wrapper' class='trans_input'> <select name='lenders' id='lender'>{% for user in users %}<option value='{{user}}'>{{user}}</option>{% endfor %} </select> <label for='lender'>paid</label> <input type='text' class='amount' name='amount[]' id='amount"+total_text+"' placeholder='Enter Amount' required> <label for='borrower'>, split with:</label> <div class='multiselect'> <div class='selectBox' onclick='showCheckboxes("+total_text+")'> <select> <option>Select an option</option>  </select> <div class='overSelect'></div>  </div>  <div id='checkboxes"+total_text+"'>  <input type='checkbox' id='checkbox_all_"+total_text+"' onClick='toggle(this,"+total_text+")' />All</label>  {% for user in users %}  <input type='checkbox' name='checkboxes"+total_text+"[]' id='checkbox_{{user}}_"+total_text+"' value='{{user}}' onClick='unsetAll("+total_text+")'' />{{user}}</label> {% endfor %} </div> </div></li>";
-    trans_div.insertAdjacentHTML('beforeend',new_input);
-  }
-
-  function remove_field()
-  {
-    var total_text=document.getElementsByClassName("trans_input");
-    document.getElementById("trans_input"+total_text.length+"_wrapper").remove();
-  }
-
-  function toggle(source,index) {
-      checkboxes = document.getElementsByName('checkboxes'+index+'[]');
-      for(var i=0, n=checkboxes.length;i<n;i++) {
-        checkboxes[i].checked = source.checked;
-      }
-    }
-
-  function unsetAll(index) {
-      checkboxes = document.getElementsByName('checkboxes'+index+'[]');
-      checked = 0;
-      for(var i=0, n=checkboxes.length;i<n;i++) {
-        if(!checkboxes[i].checked ){
-            document.getElementById('checkbox_all_'+index).checked = false;
-        }else{
-            checked++;
-        }
-      }
-      if(checked==checkboxes.length){
-        document.getElementById('checkbox_all_'+index).checked = true;
-      }
-    }
-</script>
 
 <head>
   <link rel="stylesheet" href="/static/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+              $('.selectpicker').selectpicker('mobile');
+            }
+            $('.selectpicker').selectpicker('selectAll');
+        });
+    </script>
+    <script type="text/javascript">
+
+        var expanded = false;
+        $(function(){
+            enableSelectPicker = function(_selectpicker_id)
+            {
+                $("#"+_selectpicker_id).selectpicker('selectAll');
+            }
+        })
+
+        function showCheckboxes(index) {
+          var checkboxes = document.getElementById("checkboxes"+index);
+          if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+          } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+          }
+        }
+
+
+      function add_field()
+      {
+        var total_text=document.getElementsByClassName("trans_input");
+        total_text=total_text.length+1;
+        trans_div = document.getElementById("trans_div");
+
+        new_input = "<div id='trans_input"+total_text+"_wrapper' class='input-group mb-3 trans_input'><select class='custom-select' name='lenders' id='lender'> {% for user in users %} <option value='{{user}}'>{{user}}</option> {% endfor %} </select> <div class='input-group-prepend'> <span class='input-group-text'>paid</span> </div> <div class='input-group-prepend'> <span class='input-group-text'>$</span> </div> <input type='text' class='amount form-control' name='amount[]' id='amount"+total_text+"' placeholder='amount?' required> <div class='input-group-prepend'> <span class='input-group-text'> , split with: </span> </div> <select id='selectpicker_id_"+total_text+"' class='selectpicker orm-control' multiple title='select' data-actions-box='true' data-selected-text-format='value' name='checkboxes"+total_text+"[]' required> {% for user in users %} <option name='checkboxes"+total_text+"[]' id='checkbox_{{user}}_"+total_text+"' value='{{user}}' checked>{{user}}</option> {% endfor %} </select></div>";
+        trans_div.insertAdjacentHTML('beforeend',new_input);
+        var selectpicker_id = "selectpicker_id_"+total_text;
+        enableSelectPicker(selectpicker_id);
+      }
+
+      function remove_field()
+      {
+        var total_text=document.getElementsByClassName("trans_input");
+        document.getElementById("trans_input"+total_text.length+"_wrapper").remove();
+      }
+
+
+      function unsetAll(index) {
+          checkboxes = document.getElementsByName('checkboxes'+index+'[]');
+          checked = 0;
+          for(var i=0, n=checkboxes.length;i<n;i++) {
+            if(!checkboxes[i].checked ){
+                document.getElementById('checkbox_all_'+index).checked = false;
+            }else{
+                checked++;
+            }
+          }
+          if(checked==checkboxes.length){
+            document.getElementById('checkbox_all_'+index).checked = true;
+          }
+        }
+    </script>
 </head>
 <body>
     <div class = "container">
-      <h1>Shittysplit</h1>
-      <form action='/result' method="post">
-        <div id="wrapper">
-            <ul>
-                {% for user in users %}
-                    <li>{{user}}</li>
-                {% endfor %}
-            </ul>
-
-          <ol id="trans_div">
-            <li id='trans_input1_wrapper' class='trans_input'>
-                <select name="lenders" id="lender">
-                    {% for user in users %}
-                        <option value="{{user}}">{{user}}</option>
-                    {% endfor %}
-                </select>
-                <label for="lender">paid</label>
-                <input type='text' class='amount' name='amount[]' id='amount1' placeholder='Enter Amount' required>
-
-                <label for="borrower">, split with:</label>
-                <div class="multiselect">
-                    <div class="selectBox" onclick="showCheckboxes(1)">
-                      <select>
-                        <option>Select an option</option>
-                      </select>
-                      <div class="overSelect"></div>
-                    </div>
-                    <div id="checkboxes1">
-                        <input type="checkbox" id="checkbox_all_1" onClick="toggle(this,1)" />All</label>
-                        {% for user in users %}
-                            <input type="checkbox" name="checkboxes1[]" id="checkbox_{{user}}_1" value='{{user}}' onClick="unsetAll(1)" />{{user}}</label>
-                        {% endfor %}
-                    </div>
-                </div>
-
-
-                
-            </li>
-          </ol>
-          
-          <input id="add_btn" type="button" value="Add new espense" onclick="add_field();">
-          <input id="delete_btn" type='button'value='Remove' onclick='remove_field();'>
+        <div class="row logo" onclick="location.href='/';">
+            <div class="col-lg">
+                <h1>Shittysplit</h1>
+            </div>
         </div>
-        <br>
-        <input id="submit_btn" type='submit' value='Next'>
+        <hr>
+
+
+
+
+        <form class="row" action='/result' method="post">
+            <div class="col-lg">
+                <h4>Expenses</h4>
+            </div>
+            <div id="wrapper" class="form-group col-lg">
+                <table class="table table-striped" style='display: none;'>
+                  <tbody>
+                    {% for user in users %}
+                    <tr>
+                      <td>{{user}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <div id="trans_div">
+                    <div id='trans_input1_wrapper' class="input-group mb-3 trans_input">
+                    
+                        <select class="custom-select" name="lenders" id="lender">
+                            {% for user in users %}
+                                <option value="{{user}}">{{user}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">paid</span>
+                        </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+
+                        <input type='text' class='amount form-control' name='amount[]' id='amount1' placeholder='amount?' required>
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> , split with: </span>
+                        </div>
+                        <select id='selectpicker_id_1' class="selectpicker orm-control" multiple title="select" data-actions-box="true" data-selected-text-format="value" name="checkboxes1[]" required>
+                            {% for user in users %}
+                                <option name="checkboxes1[]" id="checkbox_{{user}}_1" value='{{user}}' checked>{{user}}</option>
+                            {% endfor %}    
+                        </select>
+                    </div>
+              </div>
+               <div class="form-group">
+                    <input type="button" id="add_btn" class="btn btn-primary" type="button" value="Add new espense" onclick="add_field();">
+                    <input type="button" id="delete_btn" class="btn btn-danger" type='button'value='Remove' onclick='remove_field();'>
+              </div> 
+              <br>  
+              <div class="form-group">
+                  <input class="btn btn-success" id="submit_btn" type='submit' value='Next'>
+              </div>
+          </div>
+                   
       </form>
+      
     </div>
 </body>
