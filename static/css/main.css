@@ -1,63 +1,20 @@
 
 
-.selectBox {
-  position: relative;
-}
-
-.selectBox select {
-  width: 100%;
-  border: none;
-}
-
-.overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.multiselect div[id^="checkboxes"] {
-  display: none;
-  border: 1px #dadada solid;
-  background-color: #eee;
-  z-index: 100;
-}
-
-.multiselect div[id^="checkboxes"] label {
-  display: inline;
-}
-
-.multiselect div[id^="checkboxes"] label:hover {
-  background-color: #1e90ff;
-}
-
-label.checkbox_item{
-  display:  block!important;
-  clear: both!important;
-  width: 100%!important;
-}
-
-label.checkbox_item{
-  font-weight: normal;
-  background-color: #eee!important;
-}
-
-label.checkbox_item:hover{
-  background-color: #fff!important;
-}
-
-
 .bootstrap-select {
-  border: 1px solid #999!important;
-}
-
-.input-group{
-  border: 2px solid grey;
-  border-radius: 5px;
+  border: 1px solid #aaa!important;
 }
 
 
 .logo {
   cursor: pointer;
 }
+
+
+
+.bootstrap-select {
+  margin:  0!important;
+  height: auto!important;
+
+  padding: 0!important;
+}
+
