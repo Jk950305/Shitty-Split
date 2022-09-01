@@ -28,25 +28,27 @@ def results():
     	amounts = request.form.getlist('amount[]')
     	borrowers = []
 
-    	for i in range(len(users)):
+    	for i in range(len(lenders)):
     		string = 'checkboxes'+str(i+1)+'[]'
     		borrowers.append(request.form.getlist(string))
 
     	trans = []
 
-    	for i in range(len(lenders)):
-    		tmp = []
-    		tmp.append(lenders[i])
-    		tmp.append(float(amounts[i]))
-    		tmp.append(borrowers[i])
-    		trans.append(tmp)
+    	num = len(lenders)
+    	if ( num!=len(borrowers) or num!=len(borrowers) or num!=len(borrowers) ):
+    		result=['FAILED']
+    	else:
+	    	for i in range(len(lenders)):
+	    		tmp = []
+	    		if(lenders[i]):tmp.append(lenders[i])
+	    		if(amounts[i]):tmp.append(float(amounts[i]))
+	    		if(borrowers[i]):tmp.append(borrowers[i])
+	    		trans.append(tmp)
 
-    	texts = minCashFlow(createGraph(users, trans),users)
-    	arr = texts.split(',')
-    	result = arr[:-1]
-
-
-    	return render_template('result.html',users=users, lenders = lenders, amounts = amounts, borrowers=borrowers, result=result)
+	    	texts = minCashFlow(createGraph(users, trans),users)
+	    	arr = texts.split(',')
+	    	result = arr[:-1]
+    	return render_template('result.html',result=result)
 
 
 
