@@ -32,6 +32,10 @@ def results():
     		string = 'checkboxes'+str(i+1)+'[]'
     		borrowers.append(request.form.getlist(string))
 
+    		total = 0.0
+    	for j in range(len(amounts)):
+    		total = total+float(amounts[j])
+
     	trans = []
 
     	num = len(lenders)
@@ -51,7 +55,7 @@ def results():
 	    	if len(result)==0:
 	    		result= ['You guys are quits!']
 	    	
-    	return render_template('result.html',result=result)
+    	return render_template('result.html',result=result, total=("%.2f" % total))
 
 
 
