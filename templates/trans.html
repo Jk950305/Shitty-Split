@@ -81,6 +81,7 @@
         var selectpicker_id = "selectpicker_id_"+total_text;
         enableSelectPicker(selectpicker_id);
         document.getElementById("lender"+total_text).focus();
+        document.getElementById("lender"+total_text).scrollIntoView();
         if(total_text>1){
             document.getElementById("delete_btn").style.display = 'inline';
         }

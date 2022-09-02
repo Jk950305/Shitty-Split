@@ -13,6 +13,7 @@
     field_div.insertAdjacentHTML('beforeend',new_input);
     disable_x();
     document.getElementById("input_text"+total_text).focus();
+    document.getElementById("input_text"+total_text).scrollIntoView();
   }
 
   function disable_x(){
@@ -33,8 +34,6 @@
         total_text=total_text.length;
         document.getElementById("x_btn_"+total_text).style.display = 'inline';
     }
-    
-
   }
 </script>
 <head>
