@@ -132,7 +132,7 @@ def createGraph(users, trans):
         col = users.index(giver)
         for aBorrower in borrowers:
             row = users.index(aBorrower)
-            graph[row][col] = split
+            graph[row][col] = graph[row][col]+split
     return graph 
 
 
