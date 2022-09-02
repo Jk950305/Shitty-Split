@@ -9,9 +9,10 @@
     // "_wrapper'><label>Person "+total_text+"</label> <input type='text' class='input_text form-control' name='input_text[]' id='input_text"+
     // total_text+"' placeholder='Enter Text' required> <input type='button' class='x_btn btn btn-danger' id='x_btn_"+total_text+"' value='x' onclick='remove_field();'></div>";
 
-    new_input = "<div id='input_text"+total_text+"_wrapper' class='input-group mb-3'> <div class='input-group-prepend'> <span class='input-group-text'>Person "+total_text+"</span> </div> <input type='text' class='input_text form-control' name='input_text[]' id='input_text"+total_text+"' placeholder='Enter Text' autocomplete='off' required> <div class='x_btn input-group-append' id='x_btn_"+total_text+"'> <span class='input-group-text btn btn-danger' onclick='remove_field();'>X</span> </div> </div>";
+    new_input = "<div id='input_text"+total_text+"_wrapper' class='input-group mb-3'> <div class='input-group-prepend'> <span class='input-group-text'>Person "+total_text+"</span> </div> <input type='text' class='input_text form-control' name='input_text[]' id='input_text"+total_text+"' placeholder='Enter name' autocomplete='off' required> <div class='x_btn input-group-append' id='x_btn_"+total_text+"'> <span class=' btn btn-danger' onclick='remove_field();'>X</span> </div> </div>";
     field_div.insertAdjacentHTML('beforeend',new_input);
     disable_x();
+    document.getElementById("input_text"+total_text).focus();
   }
 
   function disable_x(){
@@ -74,9 +75,18 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Person 1</span>
                         </div>
-                        <input type='text' class='input_text form-control' name='input_text[]' id='input_text1' placeholder='Enter Text' autocomplete='off' required>
+                        <input type='text' class='input_text form-control' name='input_text[]' id='input_text1' placeholder='Enter name' autocomplete='off' required autofocus>
                         <div class='x_btn input-group-append' id='x_btn_1'> 
-                            <span class='input-group-text btn btn-danger' onclick='remove_field();' style='display:none'>X</span>
+                            <span class='btn btn-danger' onclick='remove_field();' style='display:none'>X</span>
+                        </div>
+                    </div>
+                    <div id='input_text2_wrapper' class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Person 2</span>
+                        </div>
+                        <input type='text' class='input_text form-control' name='input_text[]' id='input_text2' placeholder='Enter name' autocomplete='off' required autofocus>
+                        <div class='x_btn input-group-append' id='x_btn_2'> 
+                            <span class='btn btn-danger' onclick='remove_field();' style='display:none'>X</span>
                         </div>
                     </div>
                 </div>

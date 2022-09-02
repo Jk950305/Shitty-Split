@@ -24,9 +24,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script>
         $(document).ready(function(){
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-              $('.selectpicker').selectpicker('mobile');
-            }
+            // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            //   $('.selectpicker').selectpicker('mobile');
+            // }
             $('.selectpicker').selectpicker('selectAll');
         });
     </script>
@@ -58,33 +58,27 @@
         total_text=total_text.length+1;
         trans_div = document.getElementById("trans_div");
 
-        new_input = "<div id='trans_input"+total_text+"_wrapper' class='row mb-3 trans_input'> <div class='col-xl input-group mb-1'> <select class='custom-select' name='lenders' id='lender'> {% for user in users %} <option value='{{user}}'>{{user}}</option> {% endfor %} </select> <div class='input-group-apppend'> <span class='input-group-text'>paid</span> </div> <div class='input-group-apppend'> <span class='input-group-text'>$</span> </div> <input type='number' class='amount form-control' name='amount[]' id='amount"+total_text+"' placeholder='amount?' min='0' step='0.01' autocomplete='off' required> </div> <div class='col-xl input-group mb-1'> <div class='input-group-prepend'> <span class='input-group-text'> , split with: </span> </div> <select id='selectpicker_id_"+total_text+"' class='selectpicker custom-select' multiple title='select' data-actions-box='true' data-selected-text-format='value' name='checkboxes"+total_text+"[]' required> {% for user in users %} <option name='checkboxes"+total_text+"[]' id='checkbox_{{user}}_"+total_text+"' value='{{user}}' checked>{{user}}</option> {% endfor %} </select> </div> </div>";
+        new_input = "<div id='trans_input"+total_text+"_wrapper' class='row mb-3 trans_input'> <div class='col-xl input-group mb-1'> <select class='custom-select' name='lenders' id='lender"+total_text+"'> {% for user in users %} <option value='{{user}}'>{{user}}</option> {% endfor %} </select> <div class='input-group-prepend input-group-append'> <span class='input-group-text'>paid &#8195;<span style='color:#999;'>$</span></span> </div> <input type='number' class='amount form-control' name='amount[]' id='amount"+total_text+"' placeholder='Enter amount' min='0' step='0.01' autocomplete='off' required> </div> <div class='col-xl input-group mb-1'> <div class='input-group-prepend'> <span class='input-group-text'> split with: </span> </div> <select id='selectpicker_id_"+total_text+"' class='selectpicker custom-select' multiple title='select' data-actions-box='true' data-selected-text-format='value' name='checkboxes"+total_text+"[]' required> {% for user in users %} <option name='checkboxes"+total_text+"[]' id='checkbox_{{user}}_"+total_text+"' value='{{user}}' checked>{{user}}</option> {% endfor %} </select> </div> </div>";
         trans_div.insertAdjacentHTML('beforeend',new_input);
         var selectpicker_id = "selectpicker_id_"+total_text;
         enableSelectPicker(selectpicker_id);
+        document.getElementById("lender"+total_text).focus();
+        if(total_text>1){
+            document.getElementById("delete_btn").style.display = 'inline';
+        }
       }
 
       function remove_field()
       {
         var total_text=document.getElementsByClassName("trans_input");
-        document.getElementById("trans_input"+total_text.length+"_wrapper").remove();
-      }
+        total_text=total_text.length;
+        document.getElementById("trans_input"+total_text+"_wrapper").remove();
 
-
-      function unsetAll(index) {
-          checkboxes = document.getElementsByName('checkboxes'+index+'[]');
-          checked = 0;
-          for(var i=0, n=checkboxes.length;i<n;i++) {
-            if(!checkboxes[i].checked ){
-                document.getElementById('checkbox_all_'+index).checked = false;
-            }else{
-                checked++;
-            }
-          }
-          if(checked==checkboxes.length){
-            document.getElementById('checkbox_all_'+index).checked = true;
-          }
+        total_text=document.getElementsByClassName("trans_input").length;
+        if(total_text<=1){
+            document.getElementById("delete_btn").style.display = 'none';
         }
+      }
     </script>
 </head>
 <body>
@@ -114,24 +108,21 @@
                 <div id="trans_div">
                     <div id='trans_input1_wrapper' class="row mb-3 trans_input">
                         <div class='col-xl input-group mb-1'>
-                            <select class="custom-select" name="lenders" id="lender">
+                            <select class="custom-select" name="lenders" id="lender1" autofocus>
                                 {% for user in users %}
                                     <option value="{{user}}">{{user}}</option>
                                 {% endfor %}
                             </select>
 
-                            <div class="input-group-apppend">
-                                <span class="input-group-text">paid</span>
-                            </div>
-                            <div class="input-group-apppend">
-                                <span class="input-group-text">$</span>
+                            <div class="input-group-prepend input-group-append">
+                                <span class="input-group-text">paid &#8195;<span style='color:#999;'>$</span></span>
                             </div>
 
-                            <input type='number' class='amount form-control' name='amount[]' id='amount1' placeholder='amount?' min="0" step="0.01" autocomplete='off' required>
+                            <input type='number' class='amount form-control' name='amount[]' id='amount1' placeholder='Enter amount' min="0" step="0.01" autocomplete='off' required>
                         </div>
                         <div class='col-xl input-group mb-1'>
                             <div class="input-group-prepend">
-                                <span class="input-group-text"> , split with: </span>
+                                <span class="input-group-text"> split with: </span>
                             </div>
                             <select id='selectpicker_id_1' class="selectpicker custom-select" multiple title="select" data-actions-box="true" data-selected-text-format="value" name="checkboxes1[]" required>
                                 {% for user in users %}
@@ -141,13 +132,14 @@
                         </div>
                     </div>
               </div>
+
                <div class="form-group">
                     <input type="button" id="add_btn" class="btn btn-primary" type="button" value="Add new espense" onclick="add_field();">
-                    <input type="button" id="delete_btn" class="btn btn-danger" type='button'value='Remove' onclick='remove_field();'>
+                    <input type="button" id="delete_btn" class="btn btn-danger" type='button'value='Remove' onclick='remove_field();' style='display:none'>
               </div> 
               <br>  
               <div class="form-group">
-                  <input class="btn btn-success" id="submit_btn" type='submit' value='Next'>
+                  <input class="btn btn-success" id="submit_btn" type='submit' value='Next' style="float:right">
               </div>
           </div>
                    

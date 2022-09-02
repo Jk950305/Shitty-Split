@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, session
 
 app = Flask(__name__)
-app.secret_key = "manbearpig_MUDMAN888"
+app.secret_key = "tjdwlsldlqslek_9595959595"
 
 @app.route('/')
 def search():
@@ -48,6 +48,9 @@ def results():
 	    	texts = minCashFlow(createGraph(users, trans),users)
 	    	arr = texts.split(',')
 	    	result = arr[:-1]
+	    	if len(result)==0:
+	    		result= ['You guys are quits!']
+	    	
     	return render_template('result.html',result=result)
 
 
@@ -97,7 +100,7 @@ def minCashFlowRec(amount,users):
     if round(min,2)==0.0 :
         return ""
 
-    res = str(users[mxDebit])+" gives $"+str(round(min,2))+" to "+str(users[mxCredit])+","
+    res = str(users[mxDebit])+" gives $"+str("%.2f" % round(min,2))+" to "+str(users[mxCredit])+","
     return res+str(minCashFlowRec(amount,users))
     
 
